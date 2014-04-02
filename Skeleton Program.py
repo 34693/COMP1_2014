@@ -1,3 +1,4 @@
+
 # Skeleton Program code for the AQA COMP1 Summer 2014 examination
 # this code should be used in conjunction with the Preliminary Material
 # written by the AQA Programmer Team
@@ -133,7 +134,16 @@ def GetPlayerName():
   return PlayerName
 
 def GetChoiceFromUser():
-  Choice = input('Do you think the next card will be higher than the last card (enter y or n)? ')
+  valid = False
+  while not valid:
+    Choice = input('Do you think the next card will be higher than the last card (enter y or n)? ')
+    if Choice in['Y','YES','y','yes','Yes']:
+      Choice = 'y'
+      valid = True
+    elif Choice in ['N', 'NO','n','No']:
+      Choice = 'n'
+      valid = True
+    
   return Choice
 
 def DisplayEndOfGameMessage(Score):
