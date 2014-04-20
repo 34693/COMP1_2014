@@ -129,7 +129,20 @@ def IsNextCardHigher(LastCard, NextCard):
 
 def GetPlayerName():
   print()
-  valid = False
+  name = False
+  while not name:
+    GiveName = input("Do you want to give your name for the leaderboard (y/n)")
+    if GiveName in['y','yes','YES','Yes','Y']:
+      valid = False
+      name = True
+    elif GiveName in['n','N','No','no']:
+      valid = True
+      name = True
+      PlayerName = 'Anonymous'
+    else:
+      name = False
+    
+  print()
   while not valid:
     PlayerName = input('Please enter your name: ')
     if len(PlayerName) < 1:
