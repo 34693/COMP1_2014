@@ -1,0 +1,20 @@
+#Task 1 question 3
+### 1.The function resposible for the name is the GetPlayerName() function.
+### 2.To make sure theat the user is repeatedly asked I will create a while loop which will only exit if the length of the name is more than 0.
+### 3.A variable which will be a boolean data type which will be for the while loop.
+
+### FUNCTION in pseudo-code
+
+### FUNCTION GetPlayerName
+###	OUTPUT''
+###	valid <- False
+###	WHILE not valid THEN
+###		INPUT PlayerName
+###		IF len(PlayerNaame) < 1 THEN
+###			Valid <- False
+###		ELSE THEN
+###			Valid <- True
+###		END IF
+###	END WHILE
+###	OUTPUT ''
+###	END FUNCTION
