@@ -6,6 +6,7 @@
 # version 2 edited 06/03/2014
 
 import random
+import datetime
 
 NO_OF_RECENT_SCORES = 3
 
@@ -18,6 +19,7 @@ class TRecentScore():
   def __init__(self):
     self.Name = ''
     self.Score = 0
+    self.Date = ''
 
 Deck = [None]
 RecentScores = [None]
@@ -188,9 +190,9 @@ def DisplayRecentScores(RecentScores):
   print()
   print('Recent Scores: ')
   print()
-  print("Name".ljust(10),'Score')
+  print("Name".ljust(10),'Date'.ljust(10),'Score')
   for Count in range(1, NO_OF_RECENT_SCORES + 1):
-    print(RecentScores[Count].Name.ljust(10),RecentScores[Count].Score)
+    print(RecentScores[Count].Name.ljust(10),RecentScores[Count].Date.ljust(10),RecentScores[Count].Score)
   print()
   print('Press the Enter key to return to the main menu')
   input()
@@ -198,6 +200,8 @@ def DisplayRecentScores(RecentScores):
 
 def UpdateRecentScores(RecentScores, Score):
   PlayerName = GetPlayerName()
+  today = datetime.date.today()
+  Date = today.strftime('%d-%m-%y')
   FoundSpace = False
   Count = 1
   while (not FoundSpace) and (Count <= NO_OF_RECENT_SCORES):
@@ -212,6 +216,7 @@ def UpdateRecentScores(RecentScores, Score):
     Count = NO_OF_RECENT_SCORES
   RecentScores[Count].Name = PlayerName
   RecentScores[Count].Score = Score
+  RecentScores[Count].Date = Date
 
 def PlayGame(Deck, RecentScores):
   LastCard = TCard()
