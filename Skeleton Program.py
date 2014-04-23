@@ -55,6 +55,7 @@ def GetRank(RankNo):
     Rank = 'King'
   return Rank
 
+
 def GetSuit(SuitNo):
   Suit = ''
   if SuitNo == 1:
@@ -75,6 +76,7 @@ def DisplayMenu():
   print('2. Play game (without shuffle)')
   print('3. Display recent scores')
   print('4. Reset recent scores')
+  print('5. Options')
   print()
   print('Select an option from the menu (or enter q to quit): ', end='')
 
@@ -218,6 +220,37 @@ def UpdateRecentScores(RecentScores, Score):
   RecentScores[Count].Score = Score
   RecentScores[Count].Date = Date
 
+def DisplayOptions():
+  print('1. Set ace to high or low')
+
+def GetOptionChoice():
+  OptionChoice = int(input("Please enter your option choice."))
+
+def ValidateOption():
+  DisplayOptions
+  OptionChoice = 0
+  while not valid:
+    OptionChoice = GetOptionChoice()
+    if OptionChoice == 1:
+      valid = True
+    else:
+      valid = False
+
+def SetOption():
+  choice = ValidateOption
+  if choice == 1:
+    SetAceHighOrLow()
+
+##def SetAceHighOrLow():
+##  HighOrLow = input("Please enter if you want ace (h)igh or (l)ow")
+##  if HighOrLow == l:
+##    
+##  elif HighOrLow == h:
+##    
+##    return GetRank(RankNo)
+
+
+
 def PlayGame(Deck, RecentScores):
   LastCard = TCard()
   NextCard = TCard()
@@ -266,3 +299,5 @@ if __name__ == '__main__':
       DisplayRecentScores(RecentScores)
     elif Choice == '4':
       ResetRecentScores(RecentScores)
+##    elif Choice == '5':
+##      GetRank(RankNo) = SetOption()
