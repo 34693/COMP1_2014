@@ -36,4 +36,4 @@ FUNCTION SetAceHighOrLow
 Return HighOrLow
 END FUNCTION
 ##Question 10
-###1.It may already have scores which would then mean that there is a total over 10
+1.It may already have scores which would then mean that there is a total over 10
