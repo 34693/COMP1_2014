@@ -7,8 +7,9 @@
 
 import random
 import datetime
+import pickle
 
-NO_OF_RECENT_SCORES = 3
+NO_OF_RECENT_SCORES = 10
 
 class TCard():
   def __init__(self):
@@ -116,6 +117,8 @@ def DisplayMenu():
   print('3. Display recent scores')
   print('4. Reset recent scores')
   print('5. Options')
+  print('6. Save to file')
+  print('7. Load scores from file')
   print()
   print('Select an option from the menu (or enter q to quit): ', end='')
 
@@ -287,6 +290,16 @@ def SetOption():
   choice = ValidateOption()
   return choice
 
+def SaveToFile(RecentScores):
+  with open("leaderboard.dat", mode="wb") as my_file:
+    pickle.dump(RecentScores, my_file)
+
+def load_scores():
+  with open("leaderboard.dat", mode="rb") as my_file:
+      RecentScores = pickle.load(my_file)      
+  return RecentScores
+  
+
 def PlayGame(Deck, RecentScores):
   LastCard = TCard()
   NextCard = TCard()
@@ -339,6 +352,7 @@ def BubbleSortScores(RecentScores):
 
     return RecentScores
 
+
 if __name__ == '__main__':
   for Count in range(1, 53):
     Deck.append(TCard())
@@ -366,6 +380,15 @@ if __name__ == '__main__':
       choice = SetOption()
       if choice == 1:
         HighOrLow = SetAceHighOrLow()
+    elif Choice == '6':
+      SaveToFile(RecentScores)
+    elif Choice == '7':
+      try:
+        RecentScores = load_scores()
+      except FileNotFoundError:
+        SaveToFile(RecentScores)
+      
+      
 
 
 
