@@ -10,5 +10,30 @@ The function you must change for the ranking of the cards is GetRank.
 FUNCTION DisplayMenu THEN
 	OUTPUT'
 	OUTPUT MAIN MENU
+	OUTPUT 1. Play game (with shuffle)
+	OUTPUT 2. Play game (without shuffle)
+	OUTPUT 3. Display recent scores'
+	OUTPUT 4. Reset recent scores
+	OUTPUT 5. Options
+	OUTPUT 6. Save to file
+	OUTPUT 7. Load scores from file
 	OUTPUT
-	OUTPUT
+	INPUT Select an option from the menu (or enter q to quit): 
+END FUNTCTION
+
+FUNCTION GetOptionChoice
+	INPUT OptionChoice
+RETURN OptionChoice
+END FUNCTION
+
+FUNCTION SetOption
+	INPUT choice
+RETURN choice
+END FUNCTION
+
+FUNCTION SetAceHighOrLow
+	HighOrLow <- INPUT
+Return HighOrLow
+END FUNCTION
+##Question 10
+###1.It may already have scores which would then mean that there is a total over 10
