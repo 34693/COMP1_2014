@@ -259,6 +259,7 @@ def UpdateRecentScores(RecentScores, Score):
   RecentScores[Count].Score = Score
   RecentScores[Count].Date = Date
 
+
 def DisplayOptions():
   print('1. Set ace to high or low')
 
@@ -314,6 +315,30 @@ def PlayGame(Deck, RecentScores):
     DisplayEndOfGameMessage(51)
     UpdateRecentScores(RecentScores, 51)
 
+def BubbleSortScores(RecentScores):
+    swapped = True
+    list_length = len(RecentScores)
+    while swapped:
+        list_length = list_length - 1
+        swapped = False
+        print(RecentScores[1].Score)
+
+        for count in range(1,list_length):
+            if RecentScores[count].Score < RecentScores[count+1].Score:
+                tempScore = RecentScores[count].Score
+                tempDate = RecentScores[count].Date
+                tempName = RecentScores[count].Name
+                
+                RecentScores[count].Score = RecentScores[count+1].Score
+                RecentScores[count].Date = RecentScores[count+1].Date
+                RecentScores[count].Name = RecentScores[count+1].Name
+                RecentScores[count+1].Score = tempScore
+                RecentScores[count+1].Date = tempDate
+                RecentScores[count+1].Name = tempName                
+                swapped = True
+
+    return RecentScores
+
 if __name__ == '__main__':
   for Count in range(1, 53):
     Deck.append(TCard())
@@ -332,6 +357,7 @@ if __name__ == '__main__':
       LoadDeck(Deck)
       PlayGame(Deck, RecentScores)
     elif Choice == '3':
+      RecentScores = BubbleSortScores(RecentScores)
       DisplayRecentScores(RecentScores)
     elif Choice == '4':
       ResetRecentScores(RecentScores)
