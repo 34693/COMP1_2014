@@ -173,6 +173,13 @@ def IsNextCardHigher(LastCard, NextCard):
     Higher = True
   return Higher
 
+def SameCard(LastCard, NextCard):
+  if NextCard.Rank == LastCard.Rank and SameCardRule == 'E':
+    GameOver = True
+  else:
+    GameOver = False
+  return GameOver
+
 def GetPlayerName():
   print()
   name = False
@@ -264,7 +271,8 @@ def UpdateRecentScores(RecentScores, Score):
 
 
 def DisplayOptions():
-  print('1. Set ace to high or low')
+  print('1. Set ace to be HIGH or LOW')
+  print('2. Card of same score ends game')
 
 def GetOptionChoice():
   OptionChoice = int(input("Please enter your option choice."))
@@ -277,10 +285,15 @@ def ValidateOption():
     OptionChoice = GetOptionChoice()
     if OptionChoice == 1:
       valid = True
+    elif OptionChoice == 2:
+      valid = True
     else:
       valid = False
   return OptionChoice
 
+def SetSameCardRule():
+  SameCardRule = input("Please etner whetther you want the same card to (C)ontinue the game or (E)nd the game")
+  return SameCardRule
 
 def SetAceHighOrLow():
   HighOrLow = input("Please enter if you want ace (h)igh or (l)ow")
@@ -319,6 +332,8 @@ def PlayGame(Deck, RecentScores):
       DisplayCorrectGuessMessage(NoOfCardsTurnedOver - 1)
       LastCard.Rank = NextCard.Rank
       LastCard.Suit = NextCard.Suit
+    elif LastCard.Rank == NextCard.Rank:
+      
     else:
       GameOver = True
   if GameOver:
@@ -380,6 +395,8 @@ if __name__ == '__main__':
       choice = SetOption()
       if choice == 1:
         HighOrLow = SetAceHighOrLow()
+      elif choice == 2:
+        SameCardRule = SetSameCardRule()
     elif Choice == '6':
       SaveToFile(RecentScores)
     elif Choice == '7':
