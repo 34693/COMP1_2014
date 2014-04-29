@@ -10,6 +10,7 @@ import datetime
 import pickle
 
 NO_OF_RECENT_SCORES = 10
+SameCardRule = 'C'
 
 class TCard():
   def __init__(self):
@@ -328,12 +329,12 @@ def PlayGame(Deck, RecentScores):
     DisplayCard(NextCard)
     NoOfCardsTurnedOver = NoOfCardsTurnedOver + 1
     Higher = IsNextCardHigher(LastCard, NextCard)
-    if (Higher and Choice == 'y') or (not Higher and Choice == 'n'):
+    if LastCard.Rank == NextCard.Rank and SameCardRule == 'E':
+      GameOver = True
+    elif (Higher and Choice == 'y') or (not Higher and Choice == 'n'):
       DisplayCorrectGuessMessage(NoOfCardsTurnedOver - 1)
       LastCard.Rank = NextCard.Rank
       LastCard.Suit = NextCard.Suit
-    elif LastCard.Rank == NextCard.Rank:
-      
     else:
       GameOver = True
   if GameOver:
