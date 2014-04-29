@@ -376,6 +376,10 @@ if __name__ == '__main__':
     RecentScores.append(TRecentScore())
   Choice = ''
   HighOrLow = 'l'
+  try:
+    RecentScores = load_scores()
+  except FileNotFoundError:
+    SaveToFile(RecentScores)
   while Choice not in['q','quit','QUIT','Q','Quit']:
     DisplayMenu()
     Choice = GetMenuChoice()
@@ -400,11 +404,8 @@ if __name__ == '__main__':
         SameCardRule = SetSameCardRule()
     elif Choice == '6':
       SaveToFile(RecentScores)
-    elif Choice == '7':
-      try:
-        RecentScores = load_scores()
-      except FileNotFoundError:
-        SaveToFile(RecentScores)
+
+
       
       
 
@@ -412,4 +413,4 @@ if __name__ == '__main__':
 
   
       
-      
+
