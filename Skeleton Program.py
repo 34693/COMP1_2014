@@ -119,7 +119,6 @@ def DisplayMenu():
   print('4. Reset recent scores')
   print('5. Options')
   print('6. Save to file')
-  print('7. Load scores from file')
   print()
   print('Select an option from the menu (or enter q to quit): ', end='')
 
@@ -272,9 +271,10 @@ def UpdateRecentScores(RecentScores, Score):
 
 
 def DisplayOptions():
+  print()
   print('1. Set ace to be HIGH or LOW')
   print('2. Card of same score ends game')
-
+  print()
 def GetOptionChoice():
   OptionChoice = int(input("Please enter your option choice."))
   return OptionChoice
@@ -327,11 +327,14 @@ def PlayGame(Deck, RecentScores):
     while (Choice != 'y') and (Choice != 'n'):
       Choice = GetChoiceFromUser()
     DisplayCard(NextCard)
-    NoOfCardsTurnedOver = NoOfCardsTurnedOver + 1
+    if LastCard.Rank == NextCard.Rank and SameCardRule == 'C':
+      NoOfCardsTurnedover = NoOfCardsTurnedOver
+    else:
+      NoOfCardsTurnedOver = NoOfCardsTurnedOver + 1
     Higher = IsNextCardHigher(LastCard, NextCard)
     if LastCard.Rank == NextCard.Rank and SameCardRule == 'E':
       GameOver = True
-    elif (Higher and Choice == 'y') or (not Higher and Choice == 'n'):
+    elif (Higher and Choice == 'y') or (not Higher and Choice == 'n') or (LastCard.Rank == NextCard.Rank and SameCardRule == 'C'):
       DisplayCorrectGuessMessage(NoOfCardsTurnedOver - 1)
       LastCard.Rank = NextCard.Rank
       LastCard.Suit = NextCard.Suit
