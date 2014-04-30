@@ -215,6 +215,10 @@ def GetChoiceFromUser():
     elif Choice in ['N', 'NO','n','No']:
       Choice = 'n'
       valid = True
+    elif Choice == 's':
+      valid = True
+    else:
+      valid = False
     
   return Choice
 
@@ -315,6 +319,7 @@ def load_scores():
   
 
 def PlayGame(Deck, RecentScores):
+  Save = False
   LastCard = TCard()
   NextCard = TCard()
   GameOver = False
@@ -334,10 +339,16 @@ def PlayGame(Deck, RecentScores):
     Higher = IsNextCardHigher(LastCard, NextCard)
     if LastCard.Rank == NextCard.Rank and SameCardRule == 'E':
       GameOver = True
-    elif (Higher and Choice == 'y') or (not Higher and Choice == 'n') or (LastCard.Rank == NextCard.Rank and SameCardRule == 'C'):
+    elif (LastCard.Rank == NextCard.Rank and SameCardRule == 'C') or (Higher and Choice == 'y') or (not Higher and Choice == 'n'):
       DisplayCorrectGuessMessage(NoOfCardsTurnedOver - 1)
       LastCard.Rank = NextCard.Rank
       LastCard.Suit = NextCard.Suit
+    elif Choice == 's':
+      with open("deck.txt", mode="w", encoding='utf-8') as my_file:
+        for each in Deck:  
+          my_file.write(each,'/n')
+      GameOver = True
+    
     else:
       GameOver = True
   if GameOver:
