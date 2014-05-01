@@ -312,6 +312,17 @@ def SaveToFile(RecentScores):
   with open("leaderboard.dat", mode="wb") as my_file:
     pickle.dump(RecentScores, my_file)
 
+def SaveToTextFile(RecentScores):
+  with open("leaderboard.txt", encoding="utf-8",mode="a") as my_file:
+    for line in RecentScores:
+      temp = str(line)
+      my_file.write(line)
+
+##def LoadFromTextFile(RecentScores):
+##    with open("leaderboard.txt", encoding="utf-8",mode="a") as my_file:
+##      for line in my_file
+        
+
 def load_scores():
   with open("leaderboard.dat", mode="rb") as my_file:
       RecentScores = pickle.load(my_file)      
@@ -418,6 +429,7 @@ if __name__ == '__main__':
         SameCardRule = SetSameCardRule()
     elif Choice == '6':
       SaveToFile(RecentScores)
+
 
 
       
