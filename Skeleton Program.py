@@ -308,15 +308,18 @@ def SetOption():
   choice = ValidateOption()
   return choice
 
-def SaveToFile(RecentScores):
-  with open("leaderboard.dat", mode="wb") as my_file:
-    pickle.dump(RecentScores, my_file)
+##def SaveToFile(RecentScores):
+##  for each in RecentScores:
+##    
+##  with open("leaderboard.txt", mode="w") as my_file:
+##    pickle.dump(RecentScores, my_file)
 
-def SaveToTextFile(RecentScores):
+def SaveToFile(RecentScores):
   with open("leaderboard.txt", encoding="utf-8",mode="a") as my_file:
-    for line in RecentScores:
-      temp = str(line)
-      my_file.write(line)
+    for record in range(1,NO_OF_RECENT_SCORES +1):
+      my_file.write(str(RecentScores[record].Score)+"\n")
+      my_file.write(str(RecentScores[record].Date)+"\n")
+      my_file.write(str(RecentScores[record].Name)+"\n")
 
 ##def LoadFromTextFile(RecentScores):
 ##    with open("leaderboard.txt", encoding="utf-8",mode="a") as my_file:
@@ -324,8 +327,18 @@ def SaveToTextFile(RecentScores):
         
 
 def load_scores():
-  with open("leaderboard.dat", mode="rb") as my_file:
-      RecentScores = pickle.load(my_file)      
+  count = 0
+  with open("leaderboard.txt", encoding="utf-8",mode="r") as my_file:
+    for record in range(1,NO_OF_RECENT_SCORES +1):
+      player = TRecentScores()
+      player.Score = my_file.read(record)
+      count =+ 1
+      player.Date = my_file.read(record)
+      count =+ 1
+      player.Score = my_file.read(record)
+      count =+ 1
+##  with open("leaderboard.dat", mode="rb") as my_file:
+##      RecentScores = pickle.load(my_file)      
   return RecentScores
   
 
@@ -403,7 +416,7 @@ if __name__ == '__main__':
   HighOrLow = 'l'
   try:
     RecentScores = load_scores()
-  except FileNotFoundError:
+  except IOError:
     SaveToFile(RecentScores)
   while Choice not in['q','quit','QUIT','Q','Quit']:
     DisplayMenu()
