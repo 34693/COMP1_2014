@@ -315,7 +315,7 @@ def SetOption():
 ##    pickle.dump(RecentScores, my_file)
 
 def SaveToFile(RecentScores):
-  with open("leaderboard.txt", encoding="utf-8",mode="a") as my_file:
+  with open("leaderboard.txt", encoding="utf-8",mode="w") as my_file:
     for record in range(1,NO_OF_RECENT_SCORES +1):
       my_file.write(str(RecentScores[record].Score)+"\n")
       my_file.write(str(RecentScores[record].Date)+"\n")
@@ -327,18 +327,23 @@ def SaveToFile(RecentScores):
         
 
 def load_scores():
-  count = 0
+  count = 2
   with open("leaderboard.txt", encoding="utf-8",mode="r") as my_file:
-    for record in range(1,NO_OF_RECENT_SCORES +1):
-      player = TRecentScores()
-      player.Score = my_file.read(record)
+    for line in range(1,NO_OF_RECENT_SCORES +1):
+      player = TRecentScore()
+      temp = my_file.read(line)
+      print(temp)
+      try:
+        temp = int(temp)
+      except ValueError:
+        temp = 0
+      player.Score = temp
       count =+ 1
-      player.Date = my_file.read(record)
+      player.Date = my_file.read(line)
       count =+ 1
-      player.Score = my_file.read(record)
+      player.Score = my_file.read(line)
       count =+ 1
-##  with open("leaderboard.dat", mode="rb") as my_file:
-##      RecentScores = pickle.load(my_file)      
+      RecentScores.append(player)
   return RecentScores
   
 
@@ -353,11 +358,17 @@ def PlayGame(Deck, RecentScores):
   while (NoOfCardsTurnedOver < 52) and (not GameOver):
     GetCard(NextCard, Deck, NoOfCardsTurnedOver)
     Choice = ''
-    while (Choice != 'y') and (Choice != 'n'):
+    while (Choice != 'y') and (Choice != 'n') and (Choice != 's'):
       Choice = GetChoiceFromUser()
     DisplayCard(NextCard)
     if LastCard.Rank == NextCard.Rank and SameCardRule == 'C':
       NoOfCardsTurnedover = NoOfCardsTurnedOver
+    elif Choice == 's':
+      with open("SaveGame.txt", encoding='utf-8', mode='w')as my_file:
+        for each in Deck :
+          temp = each
+          my_file.write(temp)
+        my_file.write(NoOfCardsTurnedOver)
     else:
       NoOfCardsTurnedOver = NoOfCardsTurnedOver + 1
     Higher = IsNextCardHigher(LastCard, NextCard)
@@ -416,7 +427,9 @@ if __name__ == '__main__':
   HighOrLow = 'l'
   try:
     RecentScores = load_scores()
-  except IOError:
+  except:
+    IOError
+    ValueError
     SaveToFile(RecentScores)
   while Choice not in['q','quit','QUIT','Q','Quit']:
     DisplayMenu()
@@ -429,6 +442,7 @@ if __name__ == '__main__':
       LoadDeck(Deck)
       PlayGame(Deck, RecentScores)
     elif Choice == '3':
+      load_scores()
       RecentScores = BubbleSortScores(RecentScores)
       DisplayRecentScores(RecentScores)
     elif Choice == '4':
