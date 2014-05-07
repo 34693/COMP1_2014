@@ -308,42 +308,32 @@ def SetOption():
   choice = ValidateOption()
   return choice
 
-##def SaveToFile(RecentScores):
-##  for each in RecentScores:
-##    
-##  with open("leaderboard.txt", mode="w") as my_file:
-##    pickle.dump(RecentScores, my_file)
 
 def SaveToFile(RecentScores):
-  with open("leaderboard.txt", encoding="utf-8",mode="w") as my_file:
+  with open("save_scores.txt", encoding="utf-8",mode="w") as my_file:
     for record in range(1,NO_OF_RECENT_SCORES +1):
       my_file.write(str(RecentScores[record].Score)+"\n")
       my_file.write(str(RecentScores[record].Date)+"\n")
-      my_file.write(str(RecentScores[record].Name)+"\n")
+      my_file.write(str(RecentScores[record].Name) +"\n")
 
-##def LoadFromTextFile(RecentScores):
-##    with open("leaderboard.txt", encoding="utf-8",mode="a") as my_file:
-##      for line in my_file
         
 
 def load_scores():
-  count = 2
-  with open("leaderboard.txt", encoding="utf-8",mode="r") as my_file:
-    for line in range(1,NO_OF_RECENT_SCORES +1):
-      player = TRecentScore()
-      temp = my_file.read(line)
-      print(temp)
+  RecentScores = [""]
+  with open("save_scores.txt", mode="r", encoding = "utf-8") as Scores:
+    for count in range(1,NO_OF_RECENT_SCORES + 1):
+      ScoreRecord = TRecentScore()
+      ScoreRecord.Score = Scores.readline().rstrip("\n")
+      ScoreRecord.Date = Scores.readline().rstrip("\n")
+      ScoreRecord.Name = Scores.readline().rstrip("\n")
+      RecentScores.append(ScoreRecord)
+    for count in range(1, NO_OF_RECENT_SCORES + 1):
       try:
-        temp = int(temp)
+        int(RecentScores[count].Score)
       except ValueError:
-        temp = 0
-      player.Score = temp
-      count =+ 1
-      player.Date = my_file.read(line)
-      count =+ 1
-      player.Score = my_file.read(line)
-      count =+ 1
-      RecentScores.append(player)
+        RecentScores[count].score = None
+    print()
+    print("Load completed!")
   return RecentScores
   
 
