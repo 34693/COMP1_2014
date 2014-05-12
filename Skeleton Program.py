@@ -354,11 +354,7 @@ def PlayGame(Deck, RecentScores):
     if LastCard.Rank == NextCard.Rank and SameCardRule == 'C':
       NoOfCardsTurnedover = NoOfCardsTurnedOver
     elif Choice == 's':
-      with open("SaveGame.txt", encoding='utf-8', mode='w')as my_file:
-        for each in Deck :
-          temp = each
-          my_file.write(temp)
-        my_file.write(NoOfCardsTurnedOver)
+      Save_Progress(NoOfCardsTurnedOver)
     else:
       NoOfCardsTurnedOver = NoOfCardsTurnedOver + 1
     Higher = IsNextCardHigher(LastCard, NextCard)
@@ -368,11 +364,7 @@ def PlayGame(Deck, RecentScores):
       DisplayCorrectGuessMessage(NoOfCardsTurnedOver - 1)
       LastCard.Rank = NextCard.Rank
       LastCard.Suit = NextCard.Suit
-    elif Choice == 's':
-      with open("deck.txt", mode="w", encoding='utf-8') as my_file:
-        for each in Deck:  
-          my_file.write(each,'/n')
-      GameOver = True
+
     
     else:
       GameOver = True
@@ -407,6 +399,13 @@ def BubbleSortScores(RecentScores):
 
     return RecentScores
 
+def Save_Progress(NoOfCardsTurnedOver):
+    with open("progressSave.txt", mode='w',encoding='utf-8')as GameSave:
+        temp= NoOfCardsTurnedOver
+        GameSave.write(str(temp))
+    with open("deck.txt",mode='w',encoding='utf-8')as deck:
+        for each in deck:
+          deck.write(str(each)+"\n")
 
 if __name__ == '__main__':
   for Count in range(1, 53):
