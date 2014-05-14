@@ -130,6 +130,7 @@ def GetMenuChoice():
 def LoadDeck(Deck):
   CurrentFile = open('deck.txt', 'r')
   Count = 1
+  Cards = []
   while True:
     LineFromFile = CurrentFile.readline()
     if not LineFromFile:
@@ -139,6 +140,7 @@ def LoadDeck(Deck):
     LineFromFile = CurrentFile.readline()
     Deck[Count].Rank = int(LineFromFile)
     Count = Count + 1
+    
  
 def ShuffleDeck(Deck):
   SwapSpace = TCard()
