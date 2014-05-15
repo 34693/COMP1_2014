@@ -8,6 +8,7 @@
 import random
 import datetime
 import pickle
+import pdb
 
 NO_OF_RECENT_SCORES = 10
 SameCardRule = 'C'
@@ -27,6 +28,23 @@ Deck = [None]
 RecentScores = [None]
 Choice = ''
 
+def CreateDeck():
+  card = TCard()
+  Deck = []
+  suit = 1
+  
+  for count in range(4):
+    score = 1
+    for count in range (13):
+      card.Rank = score
+      card.Suit = suit
+      Deck.append(card)
+      score = score + 1
+    suit = suit + 1
+  for count in range(len(Deck)):
+      print(Deck[count].Suit,'suit')
+      print(Deck[count].Rank,'rank')
+  return Deck
 
 def GetRank(RankNo, HighOrLow):
 
@@ -356,7 +374,8 @@ def PlayGame(Deck, RecentScores):
     if LastCard.Rank == NextCard.Rank and SameCardRule == 'C':
       NoOfCardsTurnedover = NoOfCardsTurnedOver
     elif Choice == 's':
-      Save_Progress(NoOfCardsTurnedOver)
+      Score = NoOfCardsTurnedOver
+      SaveGameProgess(NextCard,LastCard,Deck,NoOfCardsTurnedOver,Score)
     else:
       NoOfCardsTurnedOver = NoOfCardsTurnedOver + 1
     Higher = IsNextCardHigher(LastCard, NextCard)
@@ -366,7 +385,6 @@ def PlayGame(Deck, RecentScores):
       DisplayCorrectGuessMessage(NoOfCardsTurnedOver - 1)
       LastCard.Rank = NextCard.Rank
       LastCard.Suit = NextCard.Suit
-
     
     else:
       GameOver = True
@@ -409,11 +427,28 @@ def Save_Progress(NoOfCardsTurnedOver):
         for each in deck:
           deck.write(str(each)+"\n")
 
+def SaveGameProgess(NextCard,LastCard,Deck,NoOfCardsTurnedOver,Score):
+  GameData = [NextCard,LastCard,NoOfCardsTurnedOver,Score]
+  with open("gameprogress.dat", mode="wb") as SaveData:
+    pickle.dump(GameData,SaveData)
+  SaveDeck(Deck)
+
+def SaveDeck(Deck):
+  with open('deck.txt',mode="w",encoding="utf-8") as DeckCards:
+    for Card in Deck:
+      if Card != None:
+        DeckCards.write(str(Card.Suit)+"\n")
+        DeckCards.write(str(Card.Rank)+"\n")
+
 if __name__ == '__main__':
-  for Count in range(1, 53):
-    Deck.append(TCard())
+##  for Count in range(1, 53):
+##    Deck.append(TCard())
   for Count in range(1, NO_OF_RECENT_SCORES + 1):
     RecentScores.append(TRecentScore())
+  Deck = CreateDeck()
+  for each in Deck:
+    print(Deck[each].Suit)
+    print(Deck[each].Rank)
   Choice = ''
   HighOrLow = 'l'
   try:
